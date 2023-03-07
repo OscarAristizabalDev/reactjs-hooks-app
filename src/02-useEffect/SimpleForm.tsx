@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react"
+import { Message } from "./Message";
 
 export const SimpleForm = () => {
 
@@ -23,17 +24,17 @@ export const SimpleForm = () => {
     // este useEffect se dispara una sola vez y solo permite que el componenete se carge una sola vez
     // [] significa que se ejecute una sola vez
     useEffect(() => {
-        console.log('useEffect called!')
+        //console.log('useEffect called!')
     }, []);
 
     // este useEffect se dispara cada vez que cambien los campos del formulario
     useEffect(() => {
-        console.log('formState chaged!')
+        //console.log('formState chaged!')
     }, [formState]);
-    
+
     // este useEffect se dispara cada vez que se modifique el email del formulario
     useEffect(() => {
-        console.log('formState chaged!')
+        //console.log('formState chaged!')
     }, [email]);
 
 
@@ -59,6 +60,11 @@ export const SimpleForm = () => {
                 value={email}
                 onChange={(event) => onCambiarInput(event)}
             />
+
+            {
+                username === 'oscar' && <Message /> // Se activa el componente cuando el username es igual a Oscar
+            }
+
         </>
     )
 }
