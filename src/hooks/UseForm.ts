@@ -19,8 +19,13 @@ export const useForm = (initialForm = {}) => {
         })
     };
 
+    const onResetForm = () => {
+        setFormState(initialForm)
+    }
+
     return {
         onCambiarInput,
+        onResetForm,
         formState,
         ...formState // Esto permite retornas las propiedad del objeto (username, email, password)
     };

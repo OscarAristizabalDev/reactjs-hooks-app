@@ -1,10 +1,10 @@
 import { useEffect } from "react"
-import { useForm } from "../hooks/useForm";
+import { useForm } from "../hooks/UseForm";
 
 export const FormWithCustomHook = () => {
 
     // Se destructura las propiedades del custom hook useForm
-    const { formState, onCambiarInput, username, password, email }: any = useForm({
+    const { formState, onCambiarInput, onResetForm, username, password, email }: any = useForm({
         username: '',
         email: '',
         password: ''
@@ -42,6 +42,7 @@ export const FormWithCustomHook = () => {
                 onChange={(event) => onCambiarInput(event)}
             />
 
+            <button className="btn btn-primary mt-2" onClick={() => onResetForm()}>Borrar</button>
 
         </>
     )
