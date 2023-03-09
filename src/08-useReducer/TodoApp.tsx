@@ -25,9 +25,15 @@ export const TodoApp = () => {
     // también recibe un estado inicial
     const [listTodos, dispatch] = useReducer(todoReducer, initialState)
 
-    // Este metodo es invocado desde el componente hijo
+    // Este metodo es invocado desde el componente hijo 
     const handleNewTodo = (todo: any) => {
-        console.log(todo)
+        // Acción donde se envía un objeto con el nuevo todo
+        const action = {
+            type: '[TODO] Add Todo',
+            payload: todo
+        }
+        // Se despacha la acción, es decir, se ejecuta 
+        dispatch(action);
     }
 
     return (
