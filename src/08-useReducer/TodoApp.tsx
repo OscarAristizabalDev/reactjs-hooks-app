@@ -1,29 +1,35 @@
-import { useReducer } from "react"
+import { useEffect, useReducer } from "react"
 
 import { TodoAdd } from "./TodoAdd"
 import { TodoList } from "./TodoList"
 import { todoReducer } from "./TodoReducer"
 
-const initialState = [
-    {
-        id: new Date().getTime(),
-        description: 'Tarea 1',
-        done: false
-    },
-    {
-        id: new Date().getTime() * 3,
-        description: 'Tarea 2',
-        done: false
-    },
-]
+const initialState: any = []
+
+// Obtenemos los valores que estan en el localStorage para la persistencia de datos
+const init = () => {
+    //let localTodos: any = localStorage.getItem('todos');
+    //return localTodos !== null ? JSON.parse(localStorage.getItem('todos')) : [];
+
+
+    // Si no hay valores, devolve un array vacio
+    return JSON.parse(localStorage.getItem('todos')) || []
+}
 
 export const TodoApp = () => {
 
     // useReducer es un hook de react, para manejar el estado
     // en esta caso, se va a manejar el estado de el listado de tareas
     // recibe un reduce (encargado de los eventos "elimina, agregar...")
-    // también recibe un estado inicial
-    const [listTodos, dispatch] = useReducer(todoReducer, initialState)
+    // initialState => también recibe un estado inicial
+    // recibe un tercer argumente que permite indicar los valore sinciales
+    const [listTodos, dispatch] = useReducer(todoReducer, initialState, init)
+
+    useEffect(() => {
+        localStorage.setItem('todos', JSON.stringify(listTodos))
+
+    }, [listTodos]) // cuando los todos cambian se ejecuta el efecto y se modifica el local storage
+
 
     // Este metodo es invocado desde el componente hijo 
     const handleNewTodo = (todo: any) => {
