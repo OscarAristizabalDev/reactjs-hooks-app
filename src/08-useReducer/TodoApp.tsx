@@ -21,14 +21,14 @@ export const TodoApp = () => {
     // useReducer es un hook de react, para manejar el estado
     // en esta caso, se va a manejar el estado de el listado de tareas
     // recibe un reduce (encargado de los eventos "elimina, agregar...")
-    // initialState => también recibe un estado inicial
+    // initialState => también recibe un estado inicial, el initialState es el equivalente al listTodos, es decir, cuando se modifique el initialState se cambiar el listTodos
     // recibe un tercer argumente que permite indicar los valore sinciales
     const [listTodos, dispatch] = useReducer(todoReducer, initialState, init)
 
     useEffect(() => {
         localStorage.setItem('todos', JSON.stringify(listTodos))
 
-    }, [listTodos]) // cuando los todos cambian se ejecuta el efecto y se modifica el local storage
+    }, [listTodos]) // cuando los todos se modifique se ejecutar el efecto y se modifica el local storage
 
 
     // Este metodo es invocado desde el componente hijo 
@@ -42,6 +42,18 @@ export const TodoApp = () => {
         dispatch(action);
     }
 
+    // Este metodo es invocado desde el componente hijo 
+    const handleDeleteTodo = (id: any) => {
+        //console.log({id})
+        // Acción donde se envía el id para eliminarlo del listado
+        const action = {
+            type: '[TODO] Remove Todo',
+            payload: id
+        }
+        // Se despacha la acción, es decir, se ejecuta 
+        dispatch(action);
+    }
+
     return (
         <>
             <h1>TodoApp: 10, <small>pendientes: 2</small></h1>
@@ -50,7 +62,8 @@ export const TodoApp = () => {
             <div className="row">
                 <div className="col-7">
                     {
-                        <TodoList todos={listTodos} />
+                        // Como desde el componenete Hijo TodoList se notifico desde la funcion onDeleteTodo, automaticamente se notifica la funciona handleDeleteTodo
+                        <TodoList todos={listTodos} onDeleteTodo={handleDeleteTodo}/>
                     }
                 </div>
                 <div className="col-5">

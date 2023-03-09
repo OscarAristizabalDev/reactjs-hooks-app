@@ -1,9 +1,11 @@
 
-export const TodoItem = ({ todo }: any) => {
+export const TodoItem = ({ todo, onRemoveTodo }: any) => {
+
     return (
         <li className="list-group-item d-flex justify-content-between">
             <span className="align-self-center">{todo.description}</span>
-            <button className="btn btn-danger">Borrar</button>
+            {/* Cuando se ejecute la funcion onRemoveTodo se notifica al componente padre TodoList*/}
+            <button className="btn btn-danger" onClick={ () => onRemoveTodo(todo.id) }>Borrar</button>
         </li>
     )
 }
